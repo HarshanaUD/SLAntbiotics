@@ -70,7 +70,7 @@ export default function App() {
   const [selectedDrug,    setSelectedDrug]    = useState(null);
   const [activeTab,       setActiveTab]       = useState('home');
   const [sidebarOpen,     setSidebarOpen]     = useState(false);
-  const [darkMode,        setDarkMode]        = useState(true);
+  const [darkMode,        setDarkMode]        = useState(false);
   const [awareOpen,       setAwareOpen]       = useState(false);
   const [infoModal,       setInfoModal]       = useState(null); // 'disclaimer' | 'privacy' | 'about'
   const [systemFilter,    setSystemFilter]    = useState(null); // for system click → disease list
@@ -808,7 +808,7 @@ function HomePage({ onSelectDisease, onSelectDrug, onTabChange, onSystemClick, o
   };
 
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+    <div className="animate-fade-in" style={{ maxWidth: '1100px', margin: '0 auto', overflow: 'hidden' }}>
 
       {/* ── TOP ROW ──────────────────────────────────────── */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '14px', marginBottom: '14px' }} className="home-top-row">
@@ -891,7 +891,7 @@ function HomePage({ onSelectDisease, onSelectDrug, onTabChange, onSystemClick, o
       </div>
 
       {/* ── BOTTOM BENTO ─────────────────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }} className="home-bottom-row">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', minWidth: 0 }} className="home-bottom-row">
 
         {/* Clinical Guidelines */}
         <div style={{ ...card(theme), ...{ padding: '1.5rem' } }}>
@@ -971,7 +971,7 @@ function HomePage({ onSelectDisease, onSelectDrug, onTabChange, onSystemClick, o
               <h3 style={{ fontSize: '11px', fontWeight: 800, color: theme.textMuted, letterSpacing: '0.08em', textTransform: 'uppercase' }}>WHO AWaRe Classification</h3>
               <ChevronRight size={12} style={{ color: theme.accent, marginLeft: 'auto' }} />
             </div>
-            <div style={{ display: 'flex', gap: '8px' }}>
+            <div className="aware-badges" style={{ display: 'flex', gap: '8px' }}>
               {[
                 { label: 'Access',  cls: { bg: 'rgba(16,185,129,0.1)', border: 'rgba(16,185,129,0.25)', color: '#34d399' } },
                 { label: 'Watch',   cls: { bg: 'rgba(245,158,11,0.1)',  border: 'rgba(245,158,11,0.25)',  color: '#fbbf24' } },
@@ -1021,9 +1021,10 @@ function HomePage({ onSelectDisease, onSelectDrug, onTabChange, onSystemClick, o
 
       <style>{`
         @media (max-width: 900px) { .home-top-row { grid-template-columns: 1fr !important; } }
-        @media (max-width: 700px) {
+        @media (max-width: 767px) {
           .home-bottom-row { grid-template-columns: 1fr !important; }
           .systems-grid { grid-template-columns: repeat(4,1fr) !important; }
+          .aware-badges { flex-direction: column !important; }
         }
         @media (max-width: 520px) { .systems-grid { grid-template-columns: repeat(3,1fr) !important; } }
         @media (max-width: 380px) { .systems-grid { grid-template-columns: repeat(2,1fr) !important; } }
